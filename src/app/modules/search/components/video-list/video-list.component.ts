@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { SearchListItem } from '../../types';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class VideoListComponent implements AfterViewInit, OnDestroy {
   private readonly unsubscribe$ = new Subject();
 
   @Input() public readonly items: SearchListItem[] = [];
+  @Output() public readonly next = new EventEmitter<void>();
 
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
@@ -23,9 +24,7 @@ export class VideoListComponent implements AfterViewInit, OnDestroy {
       takeUntil(this.unsubscribe$),
       filter((change: ListRange) => change.end === this.viewport.getDataLength()),
       distinctUntilChanged(),
-    ).subscribe(change => {
-      console.log(change);
-    });
+    ).subscribe(() => this.next.emit());
   }
 
   ngOnDestroy(): void {
