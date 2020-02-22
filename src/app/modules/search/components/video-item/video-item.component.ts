@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SearchListItem } from '../../types';
 
 @Component({
@@ -8,4 +8,5 @@ import { SearchListItem } from '../../types';
 })
 export class VideoItemComponent {
   @Input() item: SearchListItem;
+
 }

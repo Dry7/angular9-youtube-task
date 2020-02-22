@@ -4,12 +4,18 @@ import { SearchComponent } from './pages/search/search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoItemComponent } from './components/video-item/video-item.component';
 import { VideoListComponent } from './components/video-list/video-list.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [SearchComponent, VideoItemComponent, VideoListComponent],
   imports: [
     CommonModule,
     HttpClientModule,
+    MatCardModule,
+    MatButtonModule,
+    ScrollingModule,
   ]
 })
 export class SearchModule { }

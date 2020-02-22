@@ -1,1 +1,3 @@
-<app-video-item *ngFor="let item of items; trackBy: trackBy" [item]="item" ></app-video-item>
+<cdk-virtual-scroll-viewport itemSize="261" class="video-list">
+  <app-video-item *cdkVirtualFor="let item of items" class="video-item" [item]="item"></app-video-item>
+</cdk-virtual-scroll-viewport>
