@@ -30,6 +30,11 @@ export const selectFavourites = createSelector(
   (state: SearchState) => state.favourites,
 );
 
+export const selectLoading = createSelector(
+  selectSearch,
+  (state: SearchState) => state.loading,
+);
+
 export const selectNavigation = createSelector(
   selectSearch,
   (state: SearchState) => state.navigation,

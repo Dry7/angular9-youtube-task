@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchListItem } from '../../types';
 import { select, Store } from '@ngrx/store';
-import { ToggleFavourites, SearchVideosLoading, SearchVideosNextPage, UpdateQuery, SearchVideos } from '../../state/search.actions';
-import { AppState, selectFavourites, selectQuery, selectVideos } from '../../state';
+import { ToggleFavourites, UpdateQuery, SearchVideos, SearchVideosNextPage } from '../../state/search.actions';
+import { AppState, selectFavourites, selectLoading, selectQuery, selectVideos } from '../../state';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../../shared/components/BaseComponent';
@@ -18,6 +18,7 @@ const DEBOUNCE = 300;
 export class SearchComponent extends BaseComponent implements OnInit {
   public search$ = new Observable<SearchListItem[]>();
   public favourites$ = new Observable<string[]>();
+  public loading$ = new Observable<boolean>();
   public readonly form = new FormGroup({
     query: new FormControl(''),
   });
@@ -29,6 +30,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.search$ = this.store$.pipe(select(selectVideos));
     this.favourites$ = this.store$.pipe(select(selectFavourites));
+    this.loading$ = this.store$.pipe(select(selectLoading));
     this.form.valueChanges
       .pipe(
         takeUntil(this.unsubscribe$),

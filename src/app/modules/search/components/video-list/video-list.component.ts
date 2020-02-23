@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { SearchListItem } from '../../types';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 import { ListRange } from '@angular/cdk/collections';
 import { BaseComponent } from '../../../shared/components/BaseComponent';
 
@@ -14,6 +14,7 @@ import { BaseComponent } from '../../../shared/components/BaseComponent';
 export class VideoListComponent extends BaseComponent implements AfterViewInit {
   @Input() public readonly items: SearchListItem[] = [];
   @Input() public readonly favourites: string[] = [];
+  @Input() public readonly loading: boolean = false;
   @Output() public readonly next = new EventEmitter<void>();
   @Output() public readonly favouritesToggled = new EventEmitter<string>();
 
@@ -22,9 +23,12 @@ export class VideoListComponent extends BaseComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.viewport.renderedRangeStream.pipe(
       takeUntil(this.unsubscribe$),
-      filter((change: ListRange) => change.end === this.viewport.getDataLength()),
+      map((change: ListRange) => change.end),
+      filter((end: number) => end === this.viewport.getDataLength()),
       distinctUntilChanged(),
-    ).subscribe(() => this.next.emit());
+    ).subscribe((end) => {
+      this.next.emit();
+    });
   }
 
   addToFavourites(videoId: string): void {

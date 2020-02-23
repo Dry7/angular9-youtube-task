@@ -36,9 +36,10 @@ const searchReducer = createReducer(
     ],
     navigation: {
       ...state.navigation,
-      nextPage: response.nextPageToken,
-    }
+      nextPage: response.nextPageToken
+    },
   })),
+  on(searchActions.SearchVideosCompleteLastPage, state => ({...state, loading: false})),
   on(searchActions.SearchVideosFailed, state => ({...state, loading: false})),
   on(searchActions.ToggleFavourites, (state, { videoId }) => ({
     ...state,

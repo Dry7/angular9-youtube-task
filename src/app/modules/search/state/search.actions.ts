@@ -7,6 +7,7 @@ export const SearchVideosLoading = createAction(
   props<{query: string | null, limit: number; nextPage?: string | null}>()
 );
 export const SearchVideosComplete = createAction('[Search] Loading videos complete', props<{response: SearchListResponse}>());
+export const SearchVideosCompleteLastPage = createAction('[Search] Loading videos complete last page');
 export const SearchVideosFailed = createAction('[Search] Loading videos failed', props<{error: Error}>());
 export const SearchVideosNextPage = createAction('[Search] Loading videos next page');
 

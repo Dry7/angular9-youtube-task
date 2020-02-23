@@ -2,6 +2,7 @@
 <app-video-list
   [items]="search$ | async"
   [favourites]="favourites$ | async"
+  [loading]="loading$ | async"
   (next)="next()"
   (favouritesToggled)="addToFavourites($event)"
 ></app-video-list>

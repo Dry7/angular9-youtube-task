@@ -1,8 +1,15 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { YoutubeService } from '../services/youtube.service';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { SearchVideosLoading, SearchVideosComplete, SearchVideosNextPage, UpdateQuery, SearchVideos } from './search.actions';
+import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+  SearchVideosLoading,
+  SearchVideosComplete,
+  UpdateQuery,
+  SearchVideos,
+  SearchVideosNextPage,
+  SearchVideosCompleteLastPage
+} from './search.actions';
 import { EMPTY } from 'rxjs';
 import { AppState, selectNavigation } from './index';
 import { select, Store } from '@ngrx/store';
@@ -20,9 +27,23 @@ export class SearchEffects {
   );
 
   searchVideos$ = createEffect(() => this.action$.pipe(
-    ofType(SearchVideos, SearchVideosNextPage, UpdateQuery),
+    ofType(SearchVideos, UpdateQuery),
     withLatestFrom(this.store$.pipe(select(selectNavigation))),
     map(([, navigation]) => SearchVideosLoading(navigation))
+  ));
+
+  searchVideosNextPage$ = createEffect(() => this.action$.pipe(
+    ofType(SearchVideosNextPage),
+    withLatestFrom(this.store$.pipe(select(selectNavigation))),
+    filter(([, navigation]) => navigation.nextPage !== undefined),
+    map(([, navigation]) => SearchVideosLoading(navigation))
+  ));
+
+  searchVideosNextPageStopLoading$ = createEffect(() => this.action$.pipe(
+    ofType(SearchVideosNextPage),
+    withLatestFrom(this.store$.pipe(select(selectNavigation))),
+    filter(([, navigation]) => navigation.nextPage === undefined),
+    map(([, navigation]) => SearchVideosCompleteLastPage())
   ));
 
   constructor(

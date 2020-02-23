@@ -1,4 +1,4 @@
 <cdk-virtual-scroll-viewport itemSize="261" class="video-list">
   <app-video-item *cdkVirtualFor="let item of items" class="video-item" [item]="item" [inFavourites]="isInFavourites(item)" (favouritesToggled)="addToFavourites($event)"></app-video-item>
-  <mat-progress-spinner mode="indeterminate" class="video-list-spinner"></mat-progress-spinner>
+  <mat-progress-spinner *ngIf="loading" mode="indeterminate" class="video-list-spinner"></mat-progress-spinner>
 </cdk-virtual-scroll-viewport>
