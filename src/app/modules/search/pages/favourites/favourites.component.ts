@@ -9,7 +9,6 @@ import { ToggleFavourites } from '../../state/search.actions';
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.component.html',
-  styleUrls: ['./favourites.component.scss']
 })
 export class FavouritesComponent extends BaseComponent implements OnInit {
   public items$ = new Observable<SearchListItem[]>();

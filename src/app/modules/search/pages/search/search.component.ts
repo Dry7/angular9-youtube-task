@@ -12,8 +12,7 @@ const DEBOUNCE = 300;
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  templateUrl: './search.component.html'
 })
 export class SearchComponent extends BaseComponent implements OnInit {
   public search$ = new Observable<SearchListItem[]>();
@@ -41,7 +40,11 @@ export class SearchComponent extends BaseComponent implements OnInit {
       .subscribe((query: string) => {
         this.store$.dispatch(UpdateQuery({query}));
       });
-    this.store$.pipe(select(selectQuery)).subscribe((query: string) => this.form.setValue({ query }));
+    this.store$.pipe(select(selectQuery))
+      .pipe(
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe((query: string) => this.form.setValue({ query }));
   }
 
   search(): void {
