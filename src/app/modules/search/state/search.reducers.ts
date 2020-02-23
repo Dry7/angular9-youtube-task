@@ -4,6 +4,7 @@ import { SearchState } from './index';
 
 export const initialState: SearchState = {
   items: [],
+  favourites: [],
   nextPage: null,
   loading: true,
 };
@@ -21,6 +22,10 @@ const searchReducer = createReducer(
     ],
   })),
   on(searchActions.SearchVideosFailed, state => ({...state, loading: false})),
+  on(searchActions.ToggleFavourites, (state, { videoId }) => ({
+    ...state,
+    favourites: state.favourites.includes(videoId) ? state.favourites.filter(id => id !== videoId) : state.favourites.concat(videoId)
+  }))
 );
 
 export function reducer(state: SearchState | undefined, action: Action) {

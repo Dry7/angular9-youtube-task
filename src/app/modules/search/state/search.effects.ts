@@ -11,7 +11,7 @@ import { select, Store } from '@ngrx/store';
 export class SearchEffects {
   searchVideos$ = createEffect(() => this.action$.pipe(
       ofType(SearchVideos),
-      mergeMap(action => this.service.searchVideos(action.limit, action.nextPage).pipe(
+      switchMap(action => this.service.searchVideos(action.limit, action.nextPage).pipe(
         map(response => SearchVideosComplete({ response })),
         catchError(() => EMPTY)
         )

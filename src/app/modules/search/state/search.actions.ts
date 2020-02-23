@@ -6,3 +6,4 @@ export const SearchVideosComplete = createAction('[Search] Loading videos comple
 export const SearchVideosFailed = createAction('[Search] Loading videos failed', props<{error: Error}>());
 export const SearchVideosNextPage = createAction('[Search] Loading videos next page', props<{limit: number | null}>());
 
+export const ToggleFavourites = createAction('[Search] Toggle favourites', props<{videoId: string}>());

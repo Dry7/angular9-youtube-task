@@ -1,7 +1,7 @@
 <mat-card>
-  <img mat-card-lg-image [src]="item.snippet.thumbnails.medium.url" [width]="item.snippet.thumbnails.medium.width" [height]="item.snippet.thumbnails.medium.height" />
+  <img [src]="item.snippet.thumbnails.medium.url" [width]="item.snippet.thumbnails.medium.width" [height]="item.snippet.thumbnails.medium.height" />
   <mat-card-content>{{ item.snippet.title }}</mat-card-content>
   <mat-card-actions>
-    <button mat-button>Favourite</button>
+    <button mat-icon-button (click)="addToFavourites(item.id.videoId)" color="{{ inFavourites ? 'primary' : '' }}"><mat-icon>favorite</mat-icon></button>
   </mat-card-actions>
 </mat-card>

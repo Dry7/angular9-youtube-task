@@ -15,7 +15,9 @@ export class VideoListComponent implements AfterViewInit, OnDestroy {
   private readonly unsubscribe$ = new Subject();
 
   @Input() public readonly items: SearchListItem[] = [];
+  @Input() public readonly favourites: string[] = [];
   @Output() public readonly next = new EventEmitter<void>();
+  @Output() public readonly favouritesToggled = new EventEmitter<string>();
 
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
@@ -25,6 +27,14 @@ export class VideoListComponent implements AfterViewInit, OnDestroy {
       filter((change: ListRange) => change.end === this.viewport.getDataLength()),
       distinctUntilChanged(),
     ).subscribe(() => this.next.emit());
+  }
+
+  addToFavourites(videoId: string): void {
+    this.favouritesToggled.emit(videoId);
+  }
+
+  isInFavourites(item: SearchListItem): boolean {
+    return this.favourites.includes(item.id.videoId);
   }
 
   ngOnDestroy(): void {

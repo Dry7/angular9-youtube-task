@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SearchListItem } from '../../types';
 
 @Component({
@@ -8,5 +8,10 @@ import { SearchListItem } from '../../types';
 })
 export class VideoItemComponent {
   @Input() item: SearchListItem;
+  @Input() inFavourites = false;
+  @Output() public readonly favouritesToggled = new EventEmitter<string>();
 
+  addToFavourites(videoId: string): void {
+    this.favouritesToggled.emit(videoId);
+  }
 }
