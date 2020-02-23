@@ -7,7 +7,7 @@ import { VideoListComponent } from './components/video-list/video-list.component
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, StoreModule } from '@ngrx/store';
 import * as fromState from './state/search.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { SearchEffects } from './state/search.effects';
@@ -17,6 +17,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    keys: [{navigation: ['query']}, 'favourites'],
+    rehydrate: true,
+    removeOnUndefined: true,
+  })(reducer);
+}
 
 @NgModule({
   declarations: [SearchComponent, VideoItemComponent, VideoListComponent, SearchFilterComponent],
@@ -27,7 +36,7 @@ import { SearchFilterComponent } from './components/search-filter/search-filter.
     MatButtonModule,
     MatIconModule,
     ScrollingModule,
-    StoreModule.forFeature('search', fromState.reducer),
+    StoreModule.forFeature('search', fromState.reducer, {initialState: fromState.initialState, metaReducers: [localStorage]}),
     EffectsModule.forFeature([SearchEffects]),
     SharedModule,
     MatProgressSpinnerModule,

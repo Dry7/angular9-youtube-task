@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { SearchListItem } from '../../types';
 import { select, Store } from '@ngrx/store';
 import { ToggleFavourites, SearchVideosLoading, SearchVideosNextPage, UpdateQuery, SearchVideos } from '../../state/search.actions';
-import { AppState, selectFavourites, selectVideos } from '../../state';
+import { AppState, selectFavourites, selectQuery, selectVideos } from '../../state';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../../shared/components/BaseComponent';
@@ -27,7 +27,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.search();
     this.search$ = this.store$.pipe(select(selectVideos));
     this.favourites$ = this.store$.pipe(select(selectFavourites));
     this.form.valueChanges
@@ -38,9 +37,9 @@ export class SearchComponent extends BaseComponent implements OnInit {
         debounceTime(DEBOUNCE),
       )
       .subscribe((query: string) => {
-        console.log('subscribe - ', query);
         this.store$.dispatch(UpdateQuery({query}));
       });
+    this.store$.pipe(select(selectQuery)).subscribe((query: string) => this.form.setValue({ query }));
   }
 
   search(): void {

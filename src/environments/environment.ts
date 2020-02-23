@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   youTube: {
-    apiKey: 'AIzaSyBkEZzsycJC24Rx66U6b7TRP9spzF_Hel4',
+    apiKey: 'AIzaSyAq9aquSP_lfjYkreNxzFUvQrFRIgipNHs',
   },
 };
 

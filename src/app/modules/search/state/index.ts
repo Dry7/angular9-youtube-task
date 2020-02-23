@@ -1,15 +1,17 @@
 import { SearchListItem } from '../types';
 import { createSelector } from '@ngrx/store';
 
+interface Navigation {
+  nextPage: string | null;
+  query: string;
+  limit: number;
+}
+
 export interface SearchState {
   items: SearchListItem[];
   favourites: string[];
   loading: boolean;
-  navigation: {
-    nextPage: string | null;
-    query: string;
-    limit: number;
-  };
+  navigation: Navigation;
 }
 
 export interface AppState {
@@ -33,12 +35,7 @@ export const selectNavigation = createSelector(
   (state: SearchState) => state.navigation,
 );
 
-export const selectNextPageToken = createSelector(
-  selectSearch,
-  (state: SearchState) => state.navigation.nextPage,
-);
-
 export const selectQuery = createSelector(
-  selectSearch,
-  (state: SearchState) => state.navigation.query,
+  selectNavigation,
+  (state: Navigation) => state.query,
 );
