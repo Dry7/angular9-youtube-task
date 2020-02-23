@@ -19,7 +19,13 @@ describe('ThumbnailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create without thumbnail', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should create with thumbnail', () => {
+    component.thumbnail = {url: 'http://yandex.ru/logo.png', width: 200, height: 100};
+    fixture.detectChanges();
+    expect(fixture.nativeElement.innerHTML).toContain('<img src="http://yandex.ru/logo.png" width="200" height="100">');
   });
 });

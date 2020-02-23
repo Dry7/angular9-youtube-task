@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="item">
   <a [href]="link(item.id.videoId)" target="_blank">
     <app-thumbnail [thumbnail]="item.snippet.thumbnails.medium"></app-thumbnail>
     <mat-card-content>{{ item.snippet.title }}</mat-card-content>
