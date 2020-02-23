@@ -64,6 +64,24 @@ describe('VideoItemComponent', () => {
       .toContain('<a target="_blank" href="https://www.youtube.com/watch?v=TRIaCrDxb2M">');
   });
 
+  it('should show favourites', () => {
+    component.inFavourites = false;
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.innerHTML)
+      .toContain('<button mat-icon-button="" class="mat-icon-button mat-button-base" ng-reflect-color="">');
+  });
+
+  it('should show favourites hovered if checked', () => {
+    component.inFavourites = true;
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.innerHTML)
+      .toContain('<button mat-icon-button="" class="mat-icon-button mat-button-base mat-primary" ng-reflect-color="primary">');
+  });
+
   it('should not emit when no click', () => {
     spyOn(component.favouritesToggled, 'emit');
 
