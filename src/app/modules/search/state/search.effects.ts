@@ -1,9 +1,9 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { YoutubeService } from '../services/youtube.service';
-import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { SearchVideos, SearchVideosComplete, SearchVideosNextPage } from './search.actions';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { AppState, selectNextPageToken } from './index';
 import { select, Store } from '@ngrx/store';
 

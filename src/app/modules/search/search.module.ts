@@ -13,6 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SearchEffects } from './state/search.effects';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [SearchComponent, VideoItemComponent, VideoListComponent],
@@ -25,7 +26,8 @@ import { SharedModule } from '../shared/shared.module';
     ScrollingModule,
     StoreModule.forFeature('search', fromState.reducer),
     EffectsModule.forFeature([SearchEffects]),
-    SharedModule
+    SharedModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SearchModule { }
