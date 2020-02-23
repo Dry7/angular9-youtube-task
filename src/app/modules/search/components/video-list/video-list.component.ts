@@ -1,9 +1,9 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { SearchListItem } from '../../types';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { ListRange } from '@angular/cdk/collections';
-import { Subject } from 'rxjs';
+import { BaseComponent } from '../../../shared/components/BaseComponent';
 
 @Component({
   selector: 'app-video-list',
@@ -11,9 +11,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./video-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoListComponent implements AfterViewInit, OnDestroy {
-  private readonly unsubscribe$ = new Subject();
-
+export class VideoListComponent extends BaseComponent implements AfterViewInit {
   @Input() public readonly items: SearchListItem[] = [];
   @Input() public readonly favourites: string[] = [];
   @Output() public readonly next = new EventEmitter<void>();
@@ -35,10 +33,5 @@ export class VideoListComponent implements AfterViewInit, OnDestroy {
 
   isInFavourites(item: SearchListItem): boolean {
     return this.favourites.includes(item.id.videoId);
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
   }
 }

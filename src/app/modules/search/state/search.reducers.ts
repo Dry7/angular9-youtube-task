@@ -2,30 +2,48 @@ import * as searchActions from './search.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { SearchState } from './index';
 
+const LIMIT = 10;
+
 export const initialState: SearchState = {
   items: [],
   favourites: [],
-  nextPage: null,
   loading: true,
+  navigation: {
+    nextPage: null,
+    query: null,
+    limit: LIMIT,
+  },
 };
 
 const searchReducer = createReducer(
   initialState,
-  on(searchActions.SearchVideos, state => ({...state, loading: true})),
+  on(searchActions.UpdateQuery, (state, { query }) => ({
+    ...state,
+    items: [],
+    navigation: {
+      ...state.navigation,
+      nextPage: null,
+      query
+    }
+  })),
+  on(searchActions.SearchVideosLoading, state => ({...state, loading: true})),
   on(searchActions.SearchVideosComplete, (state, { response }) => ({
     ...state,
-    nextPage: response.nextPageToken,
     loading: false,
     items: [
       ...state.items,
       ...response.items,
     ],
+    navigation: {
+      ...state.navigation,
+      nextPage: response.nextPageToken,
+    }
   })),
   on(searchActions.SearchVideosFailed, state => ({...state, loading: false})),
   on(searchActions.ToggleFavourites, (state, { videoId }) => ({
     ...state,
     favourites: state.favourites.includes(videoId) ? state.favourites.filter(id => id !== videoId) : state.favourites.concat(videoId)
-  }))
+  })),
 );
 
 export function reducer(state: SearchState | undefined, action: Action) {

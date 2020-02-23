@@ -4,8 +4,12 @@ import { createSelector } from '@ngrx/store';
 export interface SearchState {
   items: SearchListItem[];
   favourites: string[];
-  nextPage: string | null;
   loading: boolean;
+  navigation: {
+    nextPage: string | null;
+    query: string;
+    limit: number;
+  };
 }
 
 export interface AppState {
@@ -24,7 +28,17 @@ export const selectFavourites = createSelector(
   (state: SearchState) => state.favourites,
 );
 
+export const selectNavigation = createSelector(
+  selectSearch,
+  (state: SearchState) => state.navigation,
+);
+
 export const selectNextPageToken = createSelector(
   selectSearch,
-  (state: SearchState) => state.nextPage,
+  (state: SearchState) => state.navigation.nextPage,
+);
+
+export const selectQuery = createSelector(
+  selectSearch,
+  (state: SearchState) => state.navigation.query,
 );

@@ -14,9 +14,12 @@ import { SearchEffects } from './state/search.effects';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 
 @NgModule({
-  declarations: [SearchComponent, VideoItemComponent, VideoListComponent],
+  declarations: [SearchComponent, VideoItemComponent, VideoListComponent, SearchFilterComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -27,7 +30,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     StoreModule.forFeature('search', fromState.reducer),
     EffectsModule.forFeature([SearchEffects]),
     SharedModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ]
 })
 export class SearchModule { }

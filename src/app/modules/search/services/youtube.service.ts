@@ -12,9 +12,10 @@ export class YoutubeService {
 
   constructor(private readonly http: HttpClient) { }
 
-  searchVideos(limit: number, nextPage: string | null): Observable<SearchListResponse> {
+  searchVideos(query: string, limit: number, nextPage: string | null): Observable<SearchListResponse> {
     return this.http.get<SearchListResponse>(`${this.endpoint}search?key=${environment.youTube.apiKey}`
-      + `&order=date&part=snippet &type=video,id&maxResults=${limit}`
+      + `&order=date&part=snippet&type=video,id&maxResults=${limit}`
+      + (query !== null && query !== '' ? `&q=${query}` : '')
       + (nextPage !== null ? `&pageToken=${nextPage}` : '')
     );
   }

@@ -2,16 +2,16 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { YoutubeService } from '../services/youtube.service';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { SearchVideos, SearchVideosComplete, SearchVideosNextPage } from './search.actions';
+import { SearchVideosLoading, SearchVideosComplete, SearchVideosNextPage, UpdateQuery, SearchVideos } from './search.actions';
 import { EMPTY } from 'rxjs';
-import { AppState, selectNextPageToken } from './index';
+import { AppState, selectNavigation } from './index';
 import { select, Store } from '@ngrx/store';
 
 @Injectable()
 export class SearchEffects {
-  searchVideos$ = createEffect(() => this.action$.pipe(
-      ofType(SearchVideos),
-      switchMap(action => this.service.searchVideos(action.limit, action.nextPage).pipe(
+  searchVideosLoading$ = createEffect(() => this.action$.pipe(
+      ofType(SearchVideosLoading),
+      switchMap(action => this.service.searchVideos(action.query, action.limit, action.nextPage).pipe(
         map(response => SearchVideosComplete({ response })),
         catchError(() => EMPTY)
         )
@@ -19,10 +19,10 @@ export class SearchEffects {
     )
   );
 
-  searchVideosNextPage$ = createEffect(() => this.action$.pipe(
-    ofType(SearchVideosNextPage),
-    withLatestFrom(this.store$.pipe(select(selectNextPageToken))),
-    map(([action, nextPage]) => SearchVideos({limit: action.limit, nextPage}))
+  searchVideos$ = createEffect(() => this.action$.pipe(
+    ofType(SearchVideos, SearchVideosNextPage, UpdateQuery),
+    withLatestFrom(this.store$.pipe(select(selectNavigation))),
+    map(([, navigation]) => SearchVideosLoading(navigation))
   ));
 
   constructor(
