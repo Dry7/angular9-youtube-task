@@ -14,4 +14,8 @@ export class VideoItemComponent {
   addToFavourites(videoId: string): void {
     this.favouritesToggled.emit(videoId);
   }
+
+  link(videoId: string): string {
+    return 'https://www.youtube.com/watch?v=' + videoId;
+  }
 }

@@ -12,6 +12,7 @@ import * as fromState from './state/search.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { SearchEffects } from './state/search.effects';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [SearchComponent, VideoItemComponent, VideoListComponent],
@@ -23,7 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     ScrollingModule,
     StoreModule.forFeature('search', fromState.reducer),
-    EffectsModule.forFeature([SearchEffects])
+    EffectsModule.forFeature([SearchEffects]),
+    SharedModule
   ]
 })
 export class SearchModule { }
