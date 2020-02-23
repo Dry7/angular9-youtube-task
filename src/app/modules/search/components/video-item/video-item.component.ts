@@ -9,10 +9,10 @@ import { SearchListItem } from '../../types';
 export class VideoItemComponent {
   @Input() item: SearchListItem;
   @Input() inFavourites = false;
-  @Output() public readonly favouritesToggled = new EventEmitter<string>();
+  @Output() public readonly favouritesToggled = new EventEmitter<SearchListItem>();
 
-  addToFavourites(videoId: string): void {
-    this.favouritesToggled.emit(videoId);
+  toggleFavourites(item: SearchListItem): void {
+    this.favouritesToggled.emit(item);
   }
 
   link(videoId: string): string {

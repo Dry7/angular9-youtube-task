@@ -4,5 +4,5 @@
   [favourites]="favourites$ | async"
   [loading]="loading$ | async"
   (next)="next()"
-  (favouritesToggled)="addToFavourites($event)"
+  (favouritesToggled)="toggleFavourites($event)"
 ></app-video-list>

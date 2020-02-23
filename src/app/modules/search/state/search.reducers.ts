@@ -6,7 +6,10 @@ const LIMIT = 10;
 
 export const initialState: SearchState = {
   items: [],
-  favourites: [],
+  favourites: {
+    selected: [],
+    items: [],
+  },
   loading: true,
   navigation: {
     nextPage: null,
@@ -41,9 +44,18 @@ const searchReducer = createReducer(
   })),
   on(searchActions.SearchVideosCompleteLastPage, state => ({...state, loading: false})),
   on(searchActions.SearchVideosFailed, state => ({...state, loading: false})),
-  on(searchActions.ToggleFavourites, (state, { videoId }) => ({
+  on(searchActions.ToggleFavourites, (state, { item }) => ({
     ...state,
-    favourites: state.favourites.includes(videoId) ? state.favourites.filter(id => id !== videoId) : state.favourites.concat(videoId)
+    favourites: state.favourites.selected.includes(item.id.videoId) ? {
+      selected: state.favourites.selected.filter(id => id !== item.id.videoId),
+      items: Object.entries(state.favourites.items).reduce(
+        (object, [key, value]) => (key === item.id.videoId ? object : {...object, [key]: value}),
+        {}
+      ),
+    } : {
+      selected: state.favourites.selected.concat(item.id.videoId),
+      items: {...state.favourites.items, [item.id.videoId]: item},
+    },
   })),
 );
 

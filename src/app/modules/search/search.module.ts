@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ActionReducer, StoreModule } from '@ngrx/store';
-import * as fromState from './state/search.reducers';
+import * as fromSearchState from './state/search.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { SearchEffects } from './state/search.effects';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { FavouritesComponent } from './pages/favourites/favourites.component';
 
 function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
@@ -28,7 +29,7 @@ function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 @NgModule({
-  declarations: [SearchComponent, VideoItemComponent, VideoListComponent, SearchFilterComponent],
+  declarations: [SearchComponent, VideoItemComponent, VideoListComponent, SearchFilterComponent, FavouritesComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -36,7 +37,11 @@ function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
     MatButtonModule,
     MatIconModule,
     ScrollingModule,
-    StoreModule.forFeature('search', fromState.reducer, {initialState: fromState.initialState, metaReducers: [localStorage]}),
+    StoreModule.forFeature(
+      'search',
+      fromSearchState.reducer,
+      {initialState: fromSearchState.initialState, metaReducers: [localStorage]}
+    ),
     EffectsModule.forFeature([SearchEffects]),
     SharedModule,
     MatProgressSpinnerModule,

@@ -16,7 +16,7 @@ export class VideoListComponent extends BaseComponent implements AfterViewInit {
   @Input() public readonly favourites: string[] = [];
   @Input() public readonly loading: boolean = false;
   @Output() public readonly next = new EventEmitter<void>();
-  @Output() public readonly favouritesToggled = new EventEmitter<string>();
+  @Output() public readonly favouritesToggled = new EventEmitter<SearchListItem>();
 
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
@@ -31,8 +31,8 @@ export class VideoListComponent extends BaseComponent implements AfterViewInit {
     });
   }
 
-  addToFavourites(videoId: string): void {
-    this.favouritesToggled.emit(videoId);
+  toggleFavourites(item: SearchListItem): void {
+    this.favouritesToggled.emit(item);
   }
 
   isInFavourites(item: SearchListItem): boolean {

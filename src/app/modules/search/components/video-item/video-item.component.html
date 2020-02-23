@@ -4,6 +4,6 @@
     <mat-card-content>{{ item.snippet.title }}</mat-card-content>
   </a>
   <mat-card-actions>
-    <button mat-icon-button (click)="addToFavourites(item.id.videoId)" color="{{ inFavourites ? 'primary' : '' }}"><mat-icon>favorite</mat-icon></button>
+    <button mat-icon-button (click)="toggleFavourites(item)" color="{{ inFavourites ? 'primary' : '' }}"><mat-icon>favorite</mat-icon></button>
   </mat-card-actions>
 </mat-card>

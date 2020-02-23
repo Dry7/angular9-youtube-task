@@ -1,0 +1,5 @@
+<app-video-list
+  [items]="items$ | async"
+  [favourites]="favourites$ | async"
+  (favouritesToggled)="toggleFavourites($event)"
+></app-video-list>

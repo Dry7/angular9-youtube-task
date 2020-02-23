@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { SearchListResponse } from '../types';
+import { SearchListItem, SearchListResponse } from '../types';
 
 export const SearchVideos = createAction('[Search] Start loading videos');
 export const SearchVideosLoading = createAction(
@@ -11,5 +11,5 @@ export const SearchVideosCompleteLastPage = createAction('[Search] Loading video
 export const SearchVideosFailed = createAction('[Search] Loading videos failed', props<{error: Error}>());
 export const SearchVideosNextPage = createAction('[Search] Loading videos next page');
 
-export const ToggleFavourites = createAction('[Search] Toggle favourites', props<{videoId: string}>());
+export const ToggleFavourites = createAction('[Search] Toggle favourites', props<{item: SearchListItem}>());
 export const UpdateQuery = createAction('[Search] Update query', props<{query: string | null}>());

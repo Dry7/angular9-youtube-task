@@ -7,9 +7,14 @@ interface Navigation {
   limit: number;
 }
 
+interface Favourites {
+  selected: string[];
+  items: SearchListItem[];
+}
+
 export interface SearchState {
   items: SearchListItem[];
-  favourites: string[];
+  favourites: Favourites;
   loading: boolean;
   navigation: Navigation;
 }
@@ -28,6 +33,16 @@ export const selectVideos = createSelector(
 export const selectFavourites = createSelector(
   selectSearch,
   (state: SearchState) => state.favourites,
+);
+
+export const selectSelectedFavourites = createSelector(
+  selectFavourites,
+  (state: Favourites) => state.selected,
+);
+
+export const selectFavouritesItems = createSelector(
+  selectFavourites,
+  (state: Favourites) => state.selected.map(selected => state.items[selected]),
 );
 
 export const selectLoading = createSelector(

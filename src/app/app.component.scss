@@ -1,0 +1,12 @@
+mat-sidenav {
+  a {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 6px 20px;
+  }
+
+  &-container {
+    min-height: 100%;
+  }
+}
