@@ -18,7 +18,6 @@ import {
 } from './search.actions';
 import { AppState, selectNavigation } from './index';
 import { cold, hot } from 'jasmine-marbles';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SearchVideosLoading } from './search.actions';
 import { YoutubeService } from '../services/youtube.service';
 import response from '../../../tests/fixtures/response';
@@ -27,7 +26,6 @@ const NAVIGATION = {query: '', limit: 50, nextPage: null};
 
 describe('SearchEffects', () => {
   const youtubeService = { searchVideos: jest.fn() };
-  let httpMock: HttpTestingController;
   let actions$: Observable<Action>;
   let store: MockStore<AppState>;
   let effects: SearchEffects;
@@ -35,7 +33,7 @@ describe('SearchEffects', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SearchComponent, MockSearchFilterComponent, MockVideoListComponent ],
-      imports: [ HttpClientTestingModule ],
+      imports: [],
       providers: [
         SearchEffects,
         provideMockActions(() => actions$),
@@ -45,7 +43,6 @@ describe('SearchEffects', () => {
     })
     .compileComponents();
 
-    httpMock = TestBed.inject(HttpTestingController);
     store = TestBed.get<Store>(Store);
     effects = TestBed.inject<SearchEffects>(SearchEffects);
   }));
