@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThumbnailComponent } from './thumbnail.component';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('ThumbnailComponent', () => {
   let component: ThumbnailComponent;
@@ -9,6 +10,9 @@ describe('ThumbnailComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ThumbnailComponent ]
+    })
+    .overrideComponent(ThumbnailComponent, {
+      set: {  changeDetection: ChangeDetectionStrategy.Default  }
     })
     .compileComponents();
   }));

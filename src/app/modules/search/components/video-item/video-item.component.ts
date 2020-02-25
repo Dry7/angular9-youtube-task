@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SearchListItem } from '../../types';
 
 @Component({
   selector: 'app-video-item',
   templateUrl: './video-item.component.html',
-  styleUrls: ['./video-item.component.scss']
+  styleUrls: ['./video-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoItemComponent {
   @Input() item: SearchListItem;

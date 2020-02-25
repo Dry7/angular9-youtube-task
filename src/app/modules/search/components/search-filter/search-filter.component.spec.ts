@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SearchFilterComponent } from './search-filter.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('SearchFilterComponent', () => {
   let component: SearchFilterComponent;
@@ -13,6 +13,9 @@ describe('SearchFilterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SearchFilterComponent ],
       imports: [ ReactiveFormsModule, MatInputModule, NoopAnimationsModule, ],
+    })
+    .overrideComponent(SearchFilterComponent, {
+      set: {  changeDetection: ChangeDetectionStrategy.Default  }
     })
     .compileComponents();
   }));

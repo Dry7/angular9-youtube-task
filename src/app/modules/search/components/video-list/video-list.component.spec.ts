@@ -4,6 +4,7 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
 import videos from '../../../../tests/fixtures/videos';
 import { MockVideoItemComponent } from '../../../../tests/mocks/video-item';
 import { MatProgressSpinnerComponent } from '../../../../tests/mocks/spinner';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('VideoListComponent', () => {
   let component: VideoListComponent;
@@ -20,6 +21,9 @@ describe('VideoListComponent', () => {
       providers: [
         { provide: CdkVirtualScrollViewport, useValue: viewport }
       ]
+    })
+    .overrideComponent(VideoListComponent, {
+      set: {  changeDetection: ChangeDetectionStrategy.Default  }
     })
     .compileComponents();
   }));

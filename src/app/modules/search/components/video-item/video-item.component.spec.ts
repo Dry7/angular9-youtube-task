@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { VideoItemComponent } from './video-item.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ThumbnailComponent } from '../../../shared/components/thumbnail/thumbnail.component';
@@ -15,6 +15,9 @@ describe('VideoItemComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ VideoItemComponent, ThumbnailComponent ],
       imports: [ MatCardModule, MatIconModule, MatButtonModule ]
+    })
+    .overrideComponent(VideoItemComponent, {
+      set: {  changeDetection: ChangeDetectionStrategy.Default  }
     })
     .compileComponents();
   }));

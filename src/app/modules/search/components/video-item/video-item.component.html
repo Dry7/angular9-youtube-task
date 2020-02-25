@@ -1,9 +1,9 @@
 <mat-card *ngIf="item">
   <a [href]="link(item.id.videoId)" target="_blank">
     <app-thumbnail [thumbnail]="item.snippet.thumbnails.medium"></app-thumbnail>
-    <mat-card-content>{{ item.snippet.title }}</mat-card-content>
+    <mat-card-content>{{ item.snippet.title }} {{ inFavourites | json }}</mat-card-content>
   </a>
   <mat-card-actions>
-    <button mat-icon-button (click)="toggleFavourites(item)" color="{{ inFavourites ? 'primary' : '' }}"><mat-icon>favorite</mat-icon></button>
+    <button mat-icon-button (click)="toggleFavourites(item)" [color]="inFavourites ? 'primary' : undefined"><mat-icon>favorite</mat-icon></button>
   </mat-card-actions>
 </mat-card>
