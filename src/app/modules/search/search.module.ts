@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { FavouritesComponent } from './pages/favourites/favourites.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
@@ -32,21 +33,22 @@ function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
   declarations: [SearchComponent, VideoItemComponent, VideoListComponent, SearchFilterComponent, FavouritesComponent],
   imports: [
     CommonModule,
+    SharedModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    ScrollingModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    ScrollingModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
     StoreModule.forFeature(
       'search',
       fromSearchState.reducer,
       {initialState: fromSearchState.initialState, metaReducers: [localStorage]}
     ),
     EffectsModule.forFeature([SearchEffects]),
-    SharedModule,
-    MatProgressSpinnerModule,
-    ReactiveFormsModule,
-    MatInputModule,
   ]
 })
 export class SearchModule { }

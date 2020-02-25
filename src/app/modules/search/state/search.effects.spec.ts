@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
-import { async, TestBed } from '@angular/core/testing';
+import { async, fakeAsync, TestBed } from '@angular/core/testing';
 import { SearchComponent } from '../pages/search/search.component';
 import { MockSearchFilterComponent } from '../../../tests/mocks/search-filter';
 import { MockVideoListComponent } from '../../../tests/mocks/video-list';
@@ -21,11 +21,13 @@ import { cold, hot } from 'jasmine-marbles';
 import { SearchVideosLoading } from './search.actions';
 import { YoutubeService } from '../services/youtube.service';
 import response from '../../../tests/fixtures/response';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 const NAVIGATION = {query: '', limit: 50, nextPage: null};
 
 describe('SearchEffects', () => {
   const youtubeService = { searchVideos: jest.fn() };
+  const snackBar = { open: jest.fn() };
   let actions$: Observable<Action>;
   let store: MockStore<AppState>;
   let effects: SearchEffects;
@@ -33,12 +35,13 @@ describe('SearchEffects', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SearchComponent, MockSearchFilterComponent, MockVideoListComponent ],
-      imports: [],
+      imports: [ MatSnackBarModule ],
       providers: [
         SearchEffects,
         provideMockActions(() => actions$),
         provideMockStore({initialState}),
         { provide: YoutubeService, useValue: youtubeService },
+        { provide: MatSnackBar, useValue: snackBar },
       ],
     })
     .compileComponents();
@@ -156,4 +159,23 @@ describe('SearchEffects', () => {
       expect(effects.searchVideosNextPageStopLoading$).toBeObservable(hot(''));
     });
   });
+
+  describe('searchVideosFailed$', () => {
+    it('SearchVideosFailed run snackBar', fakeAsync(() => {
+      spyOn(snackBar, 'open');
+
+      actions$ = hot('-a', {a: SearchVideosFailed({error: new Error('test')})});
+
+      expect(effects.searchVideosFailed$).toBeObservable(hot('-r', {r: SearchVideosCompleteLastPage()}));
+
+      expect(snackBar.open.mock.calls).toEqual([['test', null, { duration: 5000 }]]);
+    }));
+
+    it('skip another actions', () => {
+      actions$ = hot('--a', {a: SearchVideosCompleteLastPage()});
+
+      expect(effects.searchVideosFailed$).toBeObservable(hot(''));
+    });
+  });
+
 });
