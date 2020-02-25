@@ -70,7 +70,7 @@ describe('VideoItemComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.innerHTML)
-      .toContain('<button mat-icon-button="" class="mat-icon-button mat-button-base" ng-reflect-color="">');
+      .toContain('favorite');
   });
 
   it('should show favourites hovered if checked', () => {
@@ -79,7 +79,7 @@ describe('VideoItemComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.innerHTML)
-      .toContain('<button mat-icon-button="" class="mat-icon-button mat-button-base mat-primary" ng-reflect-color="primary">');
+      .toContain('ng-reflect-color="primary"');
   });
 
   it('should not emit when no click', () => {
