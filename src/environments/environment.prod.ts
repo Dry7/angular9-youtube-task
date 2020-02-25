@@ -3,4 +3,5 @@ export const environment = {
   youTube: {
     apiKey: '',
   },
+  limit: 50,
 };

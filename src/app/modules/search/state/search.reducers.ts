@@ -1,8 +1,7 @@
 import * as searchActions from './search.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { SearchState } from './index';
-
-const LIMIT = 10;
+import { environment } from '../../../../environments/environment';
 
 export const initialState: SearchState = {
   items: [],
@@ -14,7 +13,7 @@ export const initialState: SearchState = {
   navigation: {
     nextPage: null,
     query: null,
-    limit: LIMIT,
+    limit: environment.limit,
   },
 };
 

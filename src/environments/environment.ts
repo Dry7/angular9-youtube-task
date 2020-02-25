@@ -7,6 +7,7 @@ export const environment = {
   youTube: {
     apiKey: 'AIzaSyDih1K5CaAbKMe98rjSqrCQXJCI6S1S8nY',
   },
+  limit: 50,
 };
 
 /*
