@@ -8,14 +8,15 @@ import {
   UpdateQuery,
   SearchVideos,
   SearchVideosNextPage,
-  SearchVideosCompleteLastPage, SearchVideosFailed
+  SearchVideosCompleteLastPage,
+  SearchVideosFailed
 } from './search.actions';
 import { of } from 'rxjs';
 import { AppState, selectNavigation } from './index';
 import { select, Store } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-const ERROR_DURATION = 5000;
+const ERROR_DURATION = 5_000;
 
 @Injectable()
 export class SearchEffects {
