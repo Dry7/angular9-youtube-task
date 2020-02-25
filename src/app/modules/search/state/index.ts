@@ -9,7 +9,7 @@ interface Navigation {
 
 interface Favourites {
   selected: string[];
-  items: SearchListItem[];
+  items: {[key: string]: SearchListItem};
 }
 
 export interface SearchState {

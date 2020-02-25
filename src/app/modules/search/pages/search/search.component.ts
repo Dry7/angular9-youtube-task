@@ -37,9 +37,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
         distinctUntilChanged(),
         debounceTime(DEBOUNCE),
       )
-      .subscribe((query: string) => {
-        this.store$.dispatch(UpdateQuery({query}));
-      });
+      .subscribe((query: string) => this.store$.dispatch(UpdateQuery({query})));
     this.store$.pipe(select(selectQuery))
       .pipe(
         takeUntil(this.unsubscribe$),

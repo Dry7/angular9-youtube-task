@@ -12,10 +12,10 @@ import { BaseComponent } from '../../../shared/components/BaseComponent';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoListComponent extends BaseComponent implements AfterViewInit {
-  @Input() public readonly items: SearchListItem[] = [];
-  @Input() public readonly favourites: string[] = [];
-  @Input() public readonly loading: boolean = false;
-  @Output() public readonly next = new EventEmitter<void>();
+  @Input() public items: SearchListItem[] = [];
+  @Input() public favourites: string[] = [];
+  @Input() public loading = false;
+  @Output() public next = new EventEmitter<void>();
   @Output() public readonly favouritesToggled = new EventEmitter<SearchListItem>();
 
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
@@ -26,9 +26,7 @@ export class VideoListComponent extends BaseComponent implements AfterViewInit {
       map((change: ListRange) => change.end),
       filter((end: number) => end === this.viewport.getDataLength()),
       distinctUntilChanged(),
-    ).subscribe((end) => {
-      this.next.emit();
-    });
+    ).subscribe(() => this.next.emit());
   }
 
   toggleFavourites(item: SearchListItem): void {

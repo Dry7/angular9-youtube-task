@@ -8,9 +8,9 @@ import {
   UpdateQuery,
   SearchVideos,
   SearchVideosNextPage,
-  SearchVideosCompleteLastPage
+  SearchVideosCompleteLastPage, SearchVideosFailed
 } from './search.actions';
-import { EMPTY } from 'rxjs';
+import { of } from 'rxjs';
 import { AppState, selectNavigation } from './index';
 import { select, Store } from '@ngrx/store';
 
@@ -20,7 +20,7 @@ export class SearchEffects {
       ofType(SearchVideosLoading),
       switchMap(action => this.service.searchVideos(action.query, action.limit, action.nextPage).pipe(
         map(response => SearchVideosComplete({ response })),
-        catchError(() => EMPTY)
+        catchError((error: Error) => of(SearchVideosFailed({error})))
         )
       )
     )

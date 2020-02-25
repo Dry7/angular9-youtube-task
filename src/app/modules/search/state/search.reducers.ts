@@ -8,7 +8,7 @@ export const initialState: SearchState = {
   items: [],
   favourites: {
     selected: [],
-    items: [],
+    items: {},
   },
   loading: true,
   navigation: {

@@ -1,13 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-button class="menu-button" (click)="toggleMenu()">
+    <button mat-button (click)="toggleMenu()">
       <mat-icon>{{ isOpen ? 'menu_open' : 'menu' }}</mat-icon>
     </button>
     <span>YouTube API Test Task</span>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container (backdropClick)="toggleMenu()">
-  <mat-sidenav mode="over" [(opened)]="isOpen" (keydown.esc)="toggleMenu()" (click)="toggleMenu()" class="sidenav">
+  <mat-sidenav mode="over" [(opened)]="isOpen" (keydown.esc)="toggleMenu()" (click)="toggleMenu()">
     <a mat-button routerLink="/">Search</a>
     <a mat-button routerLink="/favourites">Favourites</a>
   </mat-sidenav>

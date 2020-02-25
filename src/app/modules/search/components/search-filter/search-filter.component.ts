@@ -7,5 +7,5 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./search-filter.component.scss']
 })
 export class SearchFilterComponent {
-  @Input() readonly form: FormGroup;
+  @Input() form: FormGroup;
 }
