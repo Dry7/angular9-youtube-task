@@ -28,7 +28,7 @@ describe('YoutubeService', () => {
     service.searchVideos('', 50, null).subscribe();
 
     httpMock.expectOne('https://www.googleapis.com/youtube/v3/search?'
-      + 'key=AIzaSyDih1K5CaAbKMe98rjSqrCQXJCI6S1S8nY&order=date&part=snippet&type=video,id&maxResults=50'
+      + 'key=&order=date&part=snippet&type=video,id&maxResults=50'
     );
   });
 
@@ -36,7 +36,7 @@ describe('YoutubeService', () => {
     service.searchVideos('test', 50, null).subscribe();
 
     httpMock.expectOne('https://www.googleapis.com/youtube/v3/search?'
-      + 'key=AIzaSyDih1K5CaAbKMe98rjSqrCQXJCI6S1S8nY&order=date&part=snippet&type=video,id&maxResults=50&q=test'
+      + 'key=&order=date&part=snippet&type=video,id&maxResults=50&q=test'
     );
   });
 
@@ -44,7 +44,7 @@ describe('YoutubeService', () => {
     service.searchVideos('', 10, null).subscribe();
 
     httpMock.expectOne('https://www.googleapis.com/youtube/v3/search?'
-      + 'key=AIzaSyDih1K5CaAbKMe98rjSqrCQXJCI6S1S8nY&order=date&part=snippet&type=video,id&maxResults=10'
+      + 'key=&order=date&part=snippet&type=video,id&maxResults=10'
     );
   });
 
@@ -52,7 +52,7 @@ describe('YoutubeService', () => {
     service.searchVideos('', 50, 'CBQQAA').subscribe();
 
     httpMock.expectOne('https://www.googleapis.com/youtube/v3/search?'
-      + 'key=AIzaSyDih1K5CaAbKMe98rjSqrCQXJCI6S1S8nY&order=date&part=snippet&type=video,id&maxResults=50&pageToken=CBQQAA'
+      + 'key=&order=date&part=snippet&type=video,id&maxResults=50&pageToken=CBQQAA'
     );
   });
 
@@ -60,7 +60,7 @@ describe('YoutubeService', () => {
     service.searchVideos('test', 3, 'CBQQAA').subscribe();
 
     httpMock.expectOne('https://www.googleapis.com/youtube/v3/search?'
-      + 'key=AIzaSyDih1K5CaAbKMe98rjSqrCQXJCI6S1S8nY&order=date&part=snippet&type=video,id&maxResults=3&q=test&pageToken=CBQQAA'
+      + 'key=&order=date&part=snippet&type=video,id&maxResults=3&q=test&pageToken=CBQQAA'
     );
   });
 });

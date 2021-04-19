@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { VideoItemComponent } from './video-item.component';
 import { ChangeDetectionStrategy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -11,7 +11,7 @@ describe('VideoItemComponent', () => {
   let component: VideoItemComponent;
   let fixture: ComponentFixture<VideoItemComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ VideoItemComponent, ThumbnailComponent ],
       imports: [ MatCardModule, MatIconModule, MatButtonModule ]

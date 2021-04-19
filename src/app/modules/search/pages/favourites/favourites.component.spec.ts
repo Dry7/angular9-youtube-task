@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FavouritesComponent } from './favourites.component';
 import { MockVideoListComponent } from '../../../../tests/mocks/video-list';
@@ -14,7 +14,7 @@ describe('FavouritesComponent', () => {
   let fixture: ComponentFixture<FavouritesComponent>;
   let store: MockStore<AppState>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FavouritesComponent, MockVideoListComponent ],
       providers: [

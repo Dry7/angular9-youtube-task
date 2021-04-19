@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { VideoListComponent } from './video-list.component';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import videos from '../../../../tests/fixtures/videos';
@@ -14,7 +14,7 @@ describe('VideoListComponent', () => {
     getDataLength: jest.fn(),
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ VideoListComponent, MockVideoItemComponent, MatProgressSpinnerComponent ],
       imports: [ ScrollingModule ],

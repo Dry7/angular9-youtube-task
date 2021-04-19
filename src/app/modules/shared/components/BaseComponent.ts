@@ -1,6 +1,10 @@
-import { OnDestroy } from '@angular/core';
+import { Component, OnDestroy} from '@angular/core';
 import { Subject } from 'rxjs';
 
+@Component({
+  selector: 'app-base-item',
+  template: ``
+})
 export class BaseComponent implements OnDestroy {
   protected readonly unsubscribe$ = new Subject();
 

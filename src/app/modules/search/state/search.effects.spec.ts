@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
-import { async, fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { SearchComponent } from '../pages/search/search.component';
 import { MockSearchFilterComponent } from '../../../tests/mocks/search-filter';
 import { MockVideoListComponent } from '../../../tests/mocks/video-list';
@@ -32,7 +32,7 @@ describe('SearchEffects', () => {
   let store: MockStore<AppState>;
   let effects: SearchEffects;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SearchComponent, MockSearchFilterComponent, MockVideoListComponent ],
       imports: [ MatSnackBarModule ],
