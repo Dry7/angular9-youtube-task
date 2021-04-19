@@ -1,4 +1,4 @@
-Angular 9, NgRx/Store, Reactive Forms, Angular Material, Jest (100% coverage)
+Angular 11, NgRx/Store, Reactive Forms, Angular Material, Jest (100% coverage)
 
 Demo - https://angular.dry7.io/
 
